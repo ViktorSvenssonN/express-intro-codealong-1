@@ -3,6 +3,8 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import data from './data.json'
 
+
+console.log(data.length)
 // Defines the port the app will run on. Defaults to 8080, but can be 
 // overridden when starting the server. For example:
 //
@@ -28,14 +30,32 @@ app.get('/year/:year', (req, res) => {
   const showWon = req.query.won
   let nominationsFromYear = data.filter((item) => item.year_award === +year)
 
-  if (showWon) {
-    nominationsFromYear = nominationsFromYear.filter((item) => item.win)
-  }
+  if (showWon === true){ 
+  nominationsFromYear = nominationsFromYear.filter((item) => item.win)
+}
 
   res.json(nominationsFromYear)
 })
+
+
 
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`)
 })
+
+/* app.get('/nominations', (req, res) => {
+  res.json(data)
+})
+
+app.get('/year/:year', (req, res) => {
+  const year = req.params.year
+  const showWon = req.query.won
+  let nominationsFromYear = data.filter((item) => item.year_award === +year)
+
+  if (showWon) {
+    nominationsFromYear = nominationsFromYear.filter((item) => item.win)
+  }
+
+  res.json(nominationsFromYear)
+}) */
